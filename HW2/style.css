@@ -230,7 +230,38 @@ ul {
   width: 200px;
 }
 
+div.album {
+  display: flex;
+  position: relative;
+  flex-flow: column nowrap;
+  justify-content: start;
+  align-items: center;
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out; /* Aggiungi una transizione alla proprietà opacity */
+}
+
+
+p.albumTitle{
+  text-align: center;
+  margin-top: 15px;
+  color: #ffffff70;
+}
 
 
 
+div#queen{
+  margin-bottom: 100px;
+}
 
+.artistImg {
+  border-radius: 50%;
+  width: 70px!important;
+  margin: 0 10px;
+  transition: opacity 0.7s ease-in-out; 
+}
+
+
+div h2 {
+  opacity: 0; /* Nascondi il titolo */
+  transition: opacity 0.5s ease-in-out;
+}
