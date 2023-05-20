@@ -232,12 +232,15 @@ ul {
 
 div.album {
   display: flex;
-  position: relative;
   flex-flow: column nowrap;
   justify-content: start;
   align-items: center;
   opacity: 0;
   transition: opacity 0.3s ease-in-out; /* Aggiungi una transizione alla proprietà opacity */
+}
+
+div.album img{
+  border-radius: 15px;
 }
 
 
@@ -265,3 +268,54 @@ div h2 {
   opacity: 0; /* Nascondi il titolo */
   transition: opacity 0.5s ease-in-out;
 }
+
+i.fa-radio{
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out;
+  cursor: pointer;
+  position: absolute;
+  top: 67px;
+  right: 12px;
+  color: #ffffff70;
+  font-size: 15px;
+  background-color: #6d6b6b3f;
+  padding: 15px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+
+i.fa-radio:hover{
+  color: #ffffff;
+  background-color: rgb(60, 211, 60);
+  
+}
+
+i.show{
+  color: #ffffff;
+  background-color: rgb(60, 211, 60);
+  animation: music 1s infinite;
+  animation-fill-mode: forwards;
+}
+
+@keyframes music{
+  0%{
+    transform: rotate(-10deg) scale(1.2);
+    opacity: 0.8;
+    
+  }
+  50%{
+    transform: rotate(10deg) scale(1);
+    box-shadow: #ffffff 0px 0px 5px 0px; 
+    opacity: 1;
+    
+  }
+  100%{
+    transform: rotate(-10deg) scale(1.2);
+    opacity: 0.8;
+    
+    
+    
+  }
+}
+  

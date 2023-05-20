@@ -26,16 +26,63 @@ musicData("queen")
 
 
 
+function music(audio, bool){
+  if(bool){
+    let player = document.querySelector("#player");
+    let newDiv = document.createElement("div");
+    newDiv.classList.add("player");
+    newDiv.innerText = "Now Playing: ";
+    player.appendChild(newDiv);
+  }else{}
+
+}
+
+
 
 /* funzione che visualizza alcuni album subito*/
 function getAlbum(datas, name) {
   let dadDiv = document.querySelector(`#${name}`);//* Es. #eminem
   let h2 = dadDiv.querySelector("h2");
   h2.style.opacity = "1"; // Imposta l'opacità iniziale a 0
+  let i= document.createElement("i");
+  i.classList.add("fa-solid");
+  i.classList.add("fa-radio");
+  i.style.opacity = "1"; // Imposta l'opacità iniziale a 0
+  let isAudioPlaying = false;
+  let audioPlayer;
+  i.addEventListener("click", () => {
+    let audio = datas.data[Math.floor(Math.random() * datas.data.length)].preview;
+    console.log(audio); // Stampa l'URL dell'anteprima audio sulla console
+  
+    if (!isAudioPlaying) {
+      // Se l'audio non è in riproduzione, avvia la riproduzione
+      if (audioPlayer) {
+        // Se l'audioPlayer esiste, interrompi la riproduzione corrente
+        audioPlayer.pause();
+      }
+      audioPlayer = new Audio(audio);
+      audioPlayer.play();
+      i.classList.add("show");
+      isAudioPlaying = true;
+      audioPlayer.addEventListener("ended", () => {
+        // Quando l'audio termina, rimuovi la classe "show" dall'icona
+        i.classList.remove("show");
+        music(audio, true);
+      });
+    } else {
+      // Se l'audio è in riproduzione, metti in pausa
+      audioPlayer.pause();
+      i.classList.remove("show");
+      music(audio, false);
+      isAudioPlaying = false;
+    }
+  });
+  
   let imgArtist = document.createElement("img");
   imgArtist.src = datas.data[0].artist.picture;
   imgArtist.classList.add("artistImg");
   h2.insertAdjacentElement("afterbegin", imgArtist);
+  h2.insertAdjacentElement("afterend", i);
   let divSection = dadDiv.querySelector(`div#${name}Section`);//*Es. div#eminemSection
   let albumUnici = [];
   let delay = 0; // Aggiungi una variabile per gestire il ritardo dell'animazione
@@ -50,13 +97,6 @@ function getAlbum(datas, name) {
       p.classList.add("albumTitle");
       let img = document.createElement("img");
       img.src = datas.data[i].album.cover_medium;
-      let button = document.createElement("button");
-      button.innerText = "Play";
-      button.style.position = "absolute";
-      button.style.top = "";
-      button.style.left = "50%";
-      button.style.opacity = "0";
-      button.style.zIndex = "1";
       img.addEventListener("mouseover", () => {
         anime({
           targets: img,
@@ -68,15 +108,10 @@ function getAlbum(datas, name) {
         anime({
           targets: p,
           scale: [1, 1.1], 
+          color: "#ffffff",
           opacity: [1, 0.8], 
           duration: 300, 
           easing: "easeOutQuad", 
-        });
-        anime({
-          targets: button,
-          opacity: [0, 1],
-          duration: 300,
-          easing: "easeOutQuad",
         });
       });
       
@@ -91,21 +126,13 @@ function getAlbum(datas, name) {
         });
         anime({
           targets: p,
+          color: "#ffffff70",
           scale: [1.1, 1],
           opacity: [0.8, 1],
           duration: 300,
           easing: "easeOutQuad",
         });
-        anime({
-          targets: button,
-          opacity: [1, 0],
-          duration: 300,
-          easing: "easeOutQuad",
-        });
       });
-
-
-      newDiv.appendChild(button);
       newDiv.appendChild(img);
       newDiv.appendChild(p);
 
@@ -123,6 +150,9 @@ function getAlbum(datas, name) {
     }
   }
 }
+
+
+
 
   
   
