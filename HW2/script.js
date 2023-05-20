@@ -20,26 +20,42 @@ musicData("metallica")
 .then((response)=>{ response.json().then((data)=>{getAlbum(data, "metallica")})})
 .catch((error)=>{console.log(error)});
 
+
+
 musicData("queen")
 .then((response)=>{ response.json().then((data)=>{getAlbum(data, "queen")})})
 .catch((error)=>{console.log(error)});
 
 
 
-function music(audio, bool){
-  if(bool){
+
+/*------------- Funzione musica--------- */
+function music(isAudioPlaying, audio) {
+  if(isAudioPlaying){
     let player = document.querySelector("#player");
-    let newDiv = document.createElement("div");
-    newDiv.classList.add("player");
-    newDiv.innerText = "Now Playing: ";
-    player.appendChild(newDiv);
-  }else{}
+    player.style.opacity="1";
+    let img = document.querySelector("#player img");
+    img.src = audio.album.cover_small;
+    let title = document.querySelector("#player h5");
+    title.innerText = audio.title;
+    let artist = document.querySelector("#player span");
+    artist.innerText = audio.artist.name;
+    let play = document.querySelector("#play");
+    play.innerHTML = `<i class="fa-solid fa-pause"></i>`;
+    play.style.color = "#ffffff70";
+
+  }else{
+    let play = document.querySelector("#play");
+    play.innerHTML = `<i class="fa-solid fa-play"></i>`;
+    player.style.opacity="0";
+  }
 
 }
 
 
 
-/* funzione che visualizza alcuni album subito*/
+
+/*---------- Funzione che visualizza alcuni album subito ---------------*/
 function getAlbum(datas, name) {
   let dadDiv = document.querySelector(`#${name}`);//* Es. #eminem
   let h2 = dadDiv.querySelector("h2");
@@ -51,33 +67,30 @@ function getAlbum(datas, name) {
   let isAudioPlaying = false;
   let audioPlayer;
   i.addEventListener("click", () => {
-    let audio = datas.data[Math.floor(Math.random() * datas.data.length)].preview;
+    let audio = datas.data[Math.floor(Math.random() * datas.data.length)];
     console.log(audio); // Stampa l'URL dell'anteprima audio sulla console
   
     if (!isAudioPlaying) {
-      // Se l'audio non è in riproduzione, avvia la riproduzione
-      if (audioPlayer) {
-        // Se l'audioPlayer esiste, interrompi la riproduzione corrente
-        audioPlayer.pause();
-      }
-      audioPlayer = new Audio(audio);
+      audioPlayer = new Audio(audio.preview);
       audioPlayer.play();
       i.classList.add("show");
       isAudioPlaying = true;
+      music(isAudioPlaying, audio);
       audioPlayer.addEventListener("ended", () => {
         // Quando l'audio termina, rimuovi la classe "show" dall'icona
         i.classList.remove("show");
-        music(audio, true);
+        isAudioPlaying = false;
       });
     } else {
       // Se l'audio è in riproduzione, metti in pausa
       audioPlayer.pause();
       i.classList.remove("show");
-      music(audio, false);
       isAudioPlaying = false;
+      music(isAudioPlaying, audio);
     }
   });
   
+
   let imgArtist = document.createElement("img");
   imgArtist.src = datas.data[0].artist.picture;
   imgArtist.classList.add("artistImg");

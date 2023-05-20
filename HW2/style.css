@@ -84,6 +84,10 @@ ul {
   #sidebar {
     display: none;
   }
+  main>div.row{
+    justify-content: center;
+    
+  }
 }
 
 /* BOTTOM PLAYER SECTION*/
@@ -319,3 +323,33 @@ i.show{
   }
 }
   
+div#player{
+  color: #ffffff70;
+  padding: 10px;
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out;
+}
+
+div#player h5{
+  width: 150px;
+  white-space: nowrap;
+  
+  animation: scrollText 10s linear infinite; /* Animazione di scorrimento */
+}
+
+div#player div{
+  overflow: hidden;
+  width: 150px;
+  padding-left: 20px;
+}
+@keyframes scrollText {
+  0% {
+    transform: translateX(100%); /* Parte da destra */
+  }
+  50% {
+    transform: translateX(0%); /* Si ferma */
+  }
+  100% {
+    transform: translateX(-100%); /* Si sposta verso sinistra */
+  }
+}

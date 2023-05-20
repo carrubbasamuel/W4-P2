@@ -132,7 +132,14 @@
   <div class="container-fluid fixed-bottom bg-container pt-1">
     <div class="row">
       <div class="col-lg-10 offset-lg-2">
-        <div id="player" class="row">
+        <div class="row">
+          <div id="player" class="row position-absolute">
+            <img width="50px" src="" alt="">
+            <div>
+              <h5 class="px-2"></h5>
+              <span></span>
+            </div>
+          </div>
           <div class="col-6 col-md-4 col-lg-2 offset-3 offset-md-4 offset-lg-5 playerControls mt-1">
             <div class="row">
               <a href="#">
@@ -141,8 +148,8 @@
               <a href="#">
                 <img src="playerbuttons/Previous.png" alt="shuffle" />
               </a>
-              <a href="#">
-                <img src="playerbuttons/Play.png" alt="shuffle" />
+              <a id="play" href="#">
+                <i class="fa-solid fa-play"></i>
               </a>
               <a href="#">
                 <img src="playerbuttons/Next.png" alt="shuffle" />
