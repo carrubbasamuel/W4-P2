@@ -30,7 +30,7 @@ musicData("queen")
 
 
 /*------------- Funzione musica--------- */
-function music(isAudioPlaying, audio) {
+function music(isAudioPlaying, audio, audioPlayer) {
   if(isAudioPlaying){
     let player = document.querySelector("#player");
     player.style.opacity="1";
@@ -43,13 +43,13 @@ function music(isAudioPlaying, audio) {
     let play = document.querySelector("#play");
     play.innerHTML = `<i class="fa-solid fa-pause"></i>`;
     play.style.color = "#ffffff70";
-
   }else{
+    let player = document.querySelector("#player");
+    player.style.opacity="0";
     let play = document.querySelector("#play");
     play.innerHTML = `<i class="fa-solid fa-play"></i>`;
     player.style.opacity="0";
   }
-
 }
 
 
@@ -57,6 +57,8 @@ function music(isAudioPlaying, audio) {
 
 /*---------- Funzione che visualizza alcuni album subito ---------------*/
 function getAlbum(datas, name) {
+  console.log(datas); // Stampa i dati sulla console
+  listData(datas, name);
   let dadDiv = document.querySelector(`#${name}`);//* Es. #eminem
   let h2 = dadDiv.querySelector("h2");
   h2.style.opacity = "1"; // Imposta l'opacità iniziale a 0
@@ -78,8 +80,10 @@ function getAlbum(datas, name) {
       music(isAudioPlaying, audio);
       audioPlayer.addEventListener("ended", () => {
         // Quando l'audio termina, rimuovi la classe "show" dall'icona
+
         i.classList.remove("show");
         isAudioPlaying = false;
+        music(isAudioPlaying, audio);
       });
     } else {
       // Se l'audio è in riproduzione, metti in pausa
@@ -164,6 +168,25 @@ function getAlbum(datas, name) {
   }
 }
 
+
+
+function listData(datas, name) {
+  let dadDiv = document.querySelector(`#modal-body`);
+  let div = document.createElement("div");
+  div.classList.add("modal-content");
+  div.style.marginBottom = "10px";
+  let h2 = document.createElement("h2");
+  h2.innerText = name;
+  h2.classList.add("modaleArtist");
+  div.appendChild(h2);
+  for (const data of datas.data) {
+    let p = document.createElement("p");
+    p.classList.add("modaleAlbum");
+    p.innerText = data.title;
+    div.appendChild(p);
+  }
+  dadDiv.appendChild(div);
+}
 
 
 

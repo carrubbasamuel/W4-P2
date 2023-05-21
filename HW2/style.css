@@ -353,3 +353,50 @@ div#player div{
     transform: translateX(-100%); /* Si sposta verso sinistra */
   }
 }
+
+div.modal-backdrop.fade.show{
+  z-index: 4;
+}
+
+button[data-target="#exampleModal"]{
+  position: absolute;
+  right: 70px;
+  bottom: 10px;
+}
+
+
+.modal-content, .modal-header, .modal-body, .modal-footer{
+  color: #ffffff;
+  border: none;
+  background-color: #00000056;
+  border-radius: 15px;
+}
+
+
+p.modaleAlbum{
+  color: #ffffff;
+  text-align: center;
+  font-weight: bold;  
+}
+
+p.modaleAlbum:hover{
+  color: #ffffff;
+  background-color: rgb(60, 211, 60); 
+  cursor: pointer;
+}
+
+h2.modaleArtist{
+  color: white;
+  opacity: 1;
+  text-align: center;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+a{
+  display: flex;
+  text-decoration: none;
+  background-color: transparent;
+  align-items: flex-end;
+  color: #ffffff70;
+}
